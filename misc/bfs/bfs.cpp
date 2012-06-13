@@ -32,9 +32,9 @@ void dfs(int x, int y, int moves)
 {
   if (x < 0 || x >= n || y < 0 || y >= n) {
     return; // out of board
-  } else if (board[y][x] == -2){
-    cout << "(" << x << ";" << y << ")\n";
-    exit(0);
+  // } else if (board[y][x] == -2){
+  //   cout << "(" << x << ";" << y << ")\n";
+  //   exit(0);
   } else if (board[y][x] == -1 || moves < board[y][x]) {
     cin.ignore();
     print_board();
@@ -72,7 +72,7 @@ Field bfs(int x, int y)
     field = q.front();
     q.pop();
 
-    if (board[field.y][field.x] == -2) return field;
+    // if (board[field.y][field.x] == -2) return field;
     if (board[field.y][field.x] != -1) continue;
 
     board[field.y][field.x] = field.moves;
@@ -169,7 +169,8 @@ int main()
   board[rand() % (n - 1)][rand() % (n - 1)] = -2;
 
   Field target;
-  target = iddfs(starting_field);
+  dfs(0,0,0);
+  //bfs(0,0);
 
   printf("Target found at (%d;%d) and you can get there in %d moves\n", target.x, target.y, target.moves);
 

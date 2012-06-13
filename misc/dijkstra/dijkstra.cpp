@@ -4,7 +4,7 @@
 #include <algorithm>
 using namespace std;
 
-#define BOARD 50
+#define BOARD 10
 
 struct Field {
   int x;
