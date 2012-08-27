@@ -1,0 +1,60 @@
+#include<iostream>
+#include<cstdlib>
+#include<cmath>
+using namespace std;
+
+int count_bits(int n)
+{
+  return n == 0 ? 0 : count_bits(n & (n - 1)) + 1;
+}
+
+int main()
+{
+  size_t problems;
+  cin >> problems;
+
+  int n_leds, n_symbols;
+
+  for(size_t i = 0; i < problems; ++i) {
+    cin >> n_leds >> n_symbols;
+    int symbols[101];
+
+    for(size_t j = 0; j < n_symbols; ++j) {
+      int led = 0;
+      for(size_t k = n_leds; k--;) {
+        int is_on;
+        cin >> is_on;
+        led += is_on << k;
+      }
+
+      cout << led << endl;
+    }
+
+    bool masked[1 << 15];
+    int best = INT_MAX;
+
+    cout << "MAX" << endl;
+    cout << (1 << n_leds) << endl;
+
+    for(size_t mask = 0; mask < (1 << n_leds); ++mask) {
+      memset(masked, false, sizeof(best));
+      bool ok = true;
+
+      for(int k = 0; k < n_symbols; ++k) {
+        if (masked[mask & symbols[k]]) {
+          cout << "COLLISSION AT " << mask << " FOR " << k << endl;
+          ok = false;
+          break;
+        }
+        masked[mask & symbols[k]] = true;
+      }
+
+      if (ok) best = min(best, count_bits(mask));
+    }
+
+    cout << "BEST" << endl;
+    cout << best << endl;
+  }
+
+  return 0;
+}
