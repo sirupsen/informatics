@@ -2,6 +2,7 @@
 #include<cmath>
 #include<string>
 #include<vector>
+#include<cstdio>
 using namespace std;
 
 #define EPS 1e-9
@@ -79,6 +80,12 @@ int main()
     }
   }
 
+  // for(vector<vector<Event> >::const_iterator event = all_events.begin(); event != all_events.end(); ++event) {
+  //   for(vector<Event>::const_iterator it = (*event).begin(); it != (*event).end(); ++it) {
+  //     cout << it->type << endl;
+  //   }
+  // }
+
   for(vector<vector<Event> >::const_iterator event = all_events.begin(); event != all_events.end(); ++event) {
     double low = 0.0, high = 10000.0, mid = 0.0, answer = 0.0;
 
@@ -93,7 +100,7 @@ int main()
       }
     }
 
-    cout << answer << endl;
+    printf("%.3f\n", answer);
   }
 
   return 0;
