@@ -1,0 +1,27 @@
+#include<cstdio>
+#include<cstring>
+
+const int types[] = {1, 5, 10, 25, 50};
+int DP[5][30000];
+
+long long recurse(size_t i, int val)
+{
+  if(DP[i][val] != -1) return DP[i][val];
+  if(val == 0) return 1;
+  if(val < 0 || i == 5) return 0;
+
+  return DP[i][val] = recurse(i, val - types[i]) + recurse(i + 1, val);
+}
+
+int main()
+{
+  int V;
+  while(scanf("%d", &V) == 1) {
+    memset(DP, -1, sizeof DP);
+    int result = recurse(0, V);
+    if(result > 1) printf("There are %d ways to produce %d cents change.\n", result, V);
+    else printf("There is only 1 way to produce %d cents change.\n", V);
+  }
+
+  return 0;
+}
