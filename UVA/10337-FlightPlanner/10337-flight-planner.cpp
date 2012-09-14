@@ -72,8 +72,7 @@ int main()
         tmp = min(dp[y-1][x-1] + 60 - air[y-1][x-1], tmp);
 
         // sink
-        if(y < 9) 
-          tmp = min(dp[y+1][x-1] + 20 - air[y+1][x-1], tmp);
+        if(y < 9) tmp = min(dp[y+1][x-1] + 20 - air[y+1][x-1], tmp);
 
         dp[y][x] = tmp;
       }

@@ -8,18 +8,6 @@ vector<vector<pair<int, int> > > adjlist;
 priority_queue<pair<int, int> > pq;
 vector<bool> taken;
 
-void proccess(int i)
-{
-  taken[i] = 1;
-
-  for(int j = 0; j < adjlist[i].size(); ++j) {
-    pair<int, int> v = adjlist[i][j];
-
-    if(!taken[v.first])
-      pq.push(pair<int, int>(-v.second, -v.first)); // negate to handle negatives
-  }
-}
-
 int main()
 {
   int n, m;
@@ -49,7 +37,14 @@ int main()
 
       if(!taken[u]) {
         min_cost += w;
-        proccess(u);
+
+        taken[u] = 1;
+        for(int j = 0; j < adjlist[u].size(); ++j) {
+          pair<int, int> v = adjlist[u][j];
+
+          if(!taken[v.first])
+            pq.push(pair<int, int>(-v.second, -v.first)); // negate to handle negatives
+        }
       }
     }
 
