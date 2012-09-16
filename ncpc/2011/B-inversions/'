@@ -1,0 +1,77 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+typedef long long ll;
+int numbers[100000], n;
+
+
+struct Tree {
+  vector<ll> tree;
+
+  Tree(size_t size, unsigned int default_value)
+  {
+    tree.assign(size * 4, default_value);
+  }
+
+  int left_memory(size_t position)
+  {
+    return position * 2;
+  }
+
+  int right_memory(size_t position)
+  {
+    return position * 2 + 1;
+  }
+
+  void add(size_t position, unsigned int start, unsigned int end, unsigned int key, int value) 
+  {
+    if(key <= end && key >= start) {
+      tree[position] += value;
+
+      if(end > start) {
+        add(left_memory(position), start, (start + end)/2, key, value);
+        add(right_memory(position), (start + end)/2+1, end, key, value);
+      }
+    }
+  }
+
+  void add(unsigned int key, unsigned int value)
+  {
+    add(1,1,n,key,value);
+  }
+
+  int sum(size_t position, unsigned int start, unsigned int end, unsigned int query_start, unsigned int query_end)
+  {
+    if(start >= query_start && end <= query_end) {
+      return tree[position];
+    } else if(start > query_end || end < query_start) {
+      return 0;
+    } else {
+      return sum(left_memory(position), start, (start + end)/2, query_start, query_end) + 
+        sum(right_memory(position), (start + end)/2 + 1, end, query_start, query_end);
+    }
+  }
+
+  int sum(unsigned int query_start, unsigned int query_end) 
+  {
+    return sum(1,1,n,query_start,query_start);
+  }
+};
+
+int main()
+{
+  scanf("%d", &n);
+  Tree frequency(10, 0);
+
+  // O(n)
+  for(int i = n - 1; i != -1; --i)
+    scanf("%d", &numbers[i]);
+
+  frequency.add(2, 4);
+  printf("%d\n", frequency.sum(1,5));
+
+  ll result = 0;
+  for(size_t i = 0; i < n; ++i) {
+  }
+}
