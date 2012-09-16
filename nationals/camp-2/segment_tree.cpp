@@ -3,6 +3,7 @@
 #include<vector>
 using namespace std;
 
+int n;
 vector<int> tree;
 
 void initTree(int position, int interval_start, int interval_end)
@@ -52,20 +53,16 @@ void addToRange(int position, int interval_start, int interval_end, int selected
   }
 }
 
-int searchMinEnd(int position, int start, int end, int search, int extra)
+int searchMinEnd(int position, int start, int end, int search)
 {
-  if(end > start) {
-    if(tree[position * 2] >= search) {
-      return searchMinEnd(position * 2, start, (start + end)/2, search, extra);
-    } else {
-      return searchMinEnd(position * 2+1, (start + end)/2+1, end, search, extra + tree[position * 2]);
-    }
+  if(end == start) return start;
+
+  if(tree[position * 2] >= search) {
+    return searchMinEnd(position * 2, start, (start + end)/2, search);
   } else {
-    return start;
+    return searchMinEnd(position * 2+1, (start + end)/2+1, end, search - tree[position * 2]);
   }
 }
-
-int n = 10;
 
 void addToTree(int key, int val)
 {
@@ -77,19 +74,27 @@ void addToRange(int range_start, int range_end, int val)
   addToRange(1,1,n,range_start,range_end,val);
 }
 
+int searchMinEnd(int search)
+{
+  return searchMinEnd(1,1,n,search);
+}
+
 int main()
 {
+  int k;
+  cin >> n;
   tree.resize(n * 4);
   initTree(1, 1, n);
 
-  // printf("Sum for range 1..3: %d\n", getSum(1, 1, n, 1, 3));
-  // addToTree(1,1,n, 3, 5);
-  // printf("Sum for range 1..3: %d\n", getSum(1, 1, n, 1, 3));
+  for(size_t i = 0; i < n - 1; ++i) 
+  {
+    cin >> k;
+    int pos = searchMinEnd(k);
+    // cout << pos << endl;
+    addToTree(pos, -1);
+  }
 
-  // printf("Sum for range 1..5: %d (expects 5)\n", getSum(1, 1, n, 1, 5));
-  // addToTree(1,1,n, 3, 5);
-  // printf("Sum for range 1..5: %d (expects 18)\n", getSum(1, 1, n, 1, 5));
-  printf("Test: %d\n", searchMinEnd(1,1,n, 5, 0));
+  cout << searchMinEnd(1) << endl;
 
   return 0;
 }
