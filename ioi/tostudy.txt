@@ -1,0 +1,13 @@
+* Least common ancestor
+* Segment trees
+* Sliding window minima
+* Line sweep
+  - Closest pair
+  - Intersections
+* Nearest smaller values
+* Convex null trick
+* Splay trees
+* Treaps
+* Modular artithmetics
+* Minimax
+* Heap

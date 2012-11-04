@@ -3,8 +3,9 @@
 using namespace std;
 
 typedef long long ll;
-ll numbers[100000], n;
 
+ll n;
+vector<int> numbers;
 
 struct Tree {
   vector<ll> tree;
@@ -38,7 +39,7 @@ struct Tree {
 
   void add(ll key, ll value)
   {
-    add(1,1,n,key,value);
+    add(1,1,105,key,value);
   }
 
   ll sum(ll position, ll start, ll end, ll query_start, ll query_end)
@@ -55,30 +56,31 @@ struct Tree {
 
   ll sum(ll query_start, ll query_end) 
   {
-    return sum(1,1,n,query_start,query_end);
+    return sum(1,1,105,query_start,query_end);
   }
 };
 
 int main()
 {
   scanf("%lld", &n);
-  Tree frequency(n);
-  Tree sum(n);
+  Tree frequency(105);
+  Tree sum(105);
 
-  // O(n)
+  numbers.resize(n);
+
   for(ll i = n - 1; i != -1; --i)
-    scanf("%lld", &numbers[i]);
+    scanf("%d", &numbers[i]);
 
   ll res = 0;
   for(ll i = 0; i < n; ++i) {
     frequency.add(numbers[i], 1);
     ll n_smaller = frequency.sum(1, numbers[i] - 1);
-    // prllf("Smaller than %d: %d\n", numbers[i], n_smaller);
+    // printf("Smaller than %d: %d\n", numbers[i], n_smaller);
 
     sum.add(numbers[i], n_smaller);
     ll sum_smaller = sum.sum(1, numbers[i] - 1);
     res += sum_smaller;
-    // prllf("Sum to %d: %d\n", numbers[i], sum_smaller);
+    // printf("Sum to %d: %d\n", numbers[i], sum_smaller);
   }
 
   printf("%lld\n", res);
