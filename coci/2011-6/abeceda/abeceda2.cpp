@@ -1,94 +1,97 @@
 #include<string>
 #include<vector>
+#include<queue>
 #include<iostream>
 using namespace std;
 
 size_t n;
 vector<string> words;
-vector<vector<int> > adj;
-vector<bool> visited;
-vector<bool> distinct;
-vector<bool> stack;
-vector<char> letters;
+vector<bool> letters;
+vector<int> out;
+vector<int> in;
 string result;
-bool loop = false;
+bool uniq = true;
 
-void dfs(int i)
-{
-  if(stack[i]) {
-    loop = true;
-    return;
-  }
+int am[30][30];
 
-  if(!visited[i]) {
-    stack[i] = true;
-
-    for(size_t j = 0; j < adj[i].size(); j++)
-      dfs(adj[i][j]);
-
-    stack[i] = false;
-    visited[i] = true;
-    result += (char) (i + 'a');
-  }
+bool is_letter(int l) {
+  if(l >= 0 && l <= 25) return true;
+  return false;
 }
 
 int main()
 {
   cin >> n;
   words.resize(n + 5);
-  adj.resize(30);
-  visited.assign(30, false);
-  stack.assign(30, false);
-  distinct.assign(30, false);
+  out.assign(30, 0);
+  in.assign(30, 0);
   letters.assign(30, false);
 
-  for(size_t i = 0; i < n; i++) {
-    cin >> words[i];
-    
-    for(size_t j = 0; j < words[i].size(); j++) {
-      int letter = (int) (words[i][j] - 'a');
+  for(size_t i = 0; i < 30; i++)
+    for(size_t j = 0; j < 30; j++)
+      am[i][j] = -1;
 
-      if (!distinct[letter]) {
-        distinct[letter] = true;
-        letters.push_back(letter);
-      }
-    }
-  }
+  for(size_t i = 0; i < n; i++)
+    cin >> words[i];
 
   for(size_t i = 0; i < n - 1; i++) {
     size_t j = 0;
     for(;j < words[i].size() && j < words[i + 1].size() 
         && words[i][j] == words[i + 1][j]; j++);
 
-    char first = words[i + 1][j];
-    char second = words[i][j];
+    int a = words[i + 1][j] - 'a';
+    int b = words[i][j] - 'a';
 
-    // cout << first << "->" << second << endl;
+    if(is_letter(a) && is_letter(b) && am[b][a] == -1) {
+      if(am[b][a] != -1) {
+        cout << "!" << endl;
+        return 0;
+      }
 
-    if(first != 0 && second != 0 && first != ' ' && second != ' ')
-      adj[(int) (first - 'a')].push_back((int) (second - 'a'));
-  }
+      am[a][b] = 1;
 
-  vector<vector<int> > adj2;
-  adj2 = adj;
+      // cout << char(b + 'a') << "->" << char(a + 'a') << endl;
 
-  for(size_t i = 0; i < letters.size(); i++) {
-    int current = 0;
+      letters[a] = true;
+      letters[b] = true;
 
-    for(size_t j = 0; j < letters.size(); j++) {
-      if(adj2[j].size() == 0) current++;
+      in[a]++;
     }
   }
 
-  visited.assign(30, false);
+  queue<int> q;
+  string result;
+
   for(size_t i = 0; i <= 25; i++)
-    if(adj[i].size() > 0)
-      dfs(i);
+    if(letters[i] && in[i] == 0) q.push(i);
 
-  // reverse(result.begin(), result.end());
+  // cout << "queue size: " << q.size() << endl;
 
-  if(loop) {
-    cout << "!" << endl;
+  while(!q.empty()) {
+    if(q.size() != 1) {
+      // cout << "queue is oversized" << endl;
+      uniq = false;
+    }
+
+    int u; u = q.front(); 
+    q.pop();
+
+    result += (char) (u + 'a');
+
+    for(size_t i = 0; i < 30; i++) {
+      if(am[i][u] != -1) {
+        am[i][u] = -1;
+        in[i]--;
+
+        // cout << "Ingoing for " << char(i + 'a') << " " << in[i] << endl;
+
+        if(in[i] == 0) q.push(i);
+      }
+    }
+  }
+
+  if(!uniq) {
+    cout << "?" << endl;
   } else {
     cout << result << endl;
   }
