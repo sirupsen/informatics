@@ -1,0 +1,156 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 8.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[      4869,        147]
+NotebookOptionsPosition[      4175,        118]
+NotebookOutlinePosition[      4528,        134]
+CellTagsIndexPosition[      4485,        131]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["For Aa", "Subtitle",
+ CellChangeTimes->{{3.5636894298619423`*^9, 3.563689431726446*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"homodominant", "=", "28051"}], "\[IndentingNewLine]", 
+ RowBox[{"hetero", "=", "30853"}], "\[IndentingNewLine]", 
+ RowBox[{"homorecessive", "=", "36707"}], "\[IndentingNewLine]", 
+ RowBox[{"total", "=", 
+  RowBox[{"homodominant", "+", "hetero", "+", "homorecessive"}]}]}], "Input",
+ CellChangeTimes->{{3.563689446636195*^9, 3.5636894502155247`*^9}, {
+  3.563689523309273*^9, 3.56368954824265*^9}, {3.563690314177055*^9, 
+  3.56369032384533*^9}, {3.5636904414187307`*^9, 3.563690468773589*^9}}],
+
+Cell[BoxData["28051"], "Output",
+ CellChangeTimes->{
+  3.563689555944551*^9, 3.56369032413981*^9, {3.5636904547351093`*^9, 
+   3.563690469111866*^9}, 3.5636924789341288`*^9}],
+
+Cell[BoxData["30853"], "Output",
+ CellChangeTimes->{
+  3.563689555944551*^9, 3.56369032413981*^9, {3.5636904547351093`*^9, 
+   3.563690469111866*^9}, 3.5636924789362917`*^9}],
+
+Cell[BoxData["36707"], "Output",
+ CellChangeTimes->{
+  3.563689555944551*^9, 3.56369032413981*^9, {3.5636904547351093`*^9, 
+   3.563690469111866*^9}, 3.5636924789377403`*^9}],
+
+Cell[BoxData["95611"], "Output",
+ CellChangeTimes->{
+  3.563689555944551*^9, 3.56369032413981*^9, {3.5636904547351093`*^9, 
+   3.563690469111866*^9}, 3.563692478939156*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"res0", "=", 
+  RowBox[{
+   RowBox[{
+    FractionBox["hetero", "total"], "*", 
+    FractionBox[
+     RowBox[{"hetero", "-", "1"}], 
+     RowBox[{"total", "-", "1"}]], "*", 
+    FractionBox["1", "4"]}], "+", 
+   RowBox[{
+    FractionBox["hetero", "total"], "*", 
+    FractionBox["homorecessive", 
+     RowBox[{"total", "-", "1"}]], "*", 
+    FractionBox["1", "2"]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"res1", "=", 
+  RowBox[{
+   RowBox[{
+    FractionBox["homorecessive", "total"], "*", 
+    FractionBox["hetero", 
+     RowBox[{"total", "-", "1"}]], "*", 
+    FractionBox["1", "2"]}], "+", 
+   RowBox[{
+    FractionBox["homorecessive", "total"], "*", 
+    FractionBox[
+     RowBox[{"homorecessive", "-", "1"}], 
+     RowBox[{"total", "-", "1"}]], "*", "1"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"1", "-", 
+   RowBox[{"(", 
+    RowBox[{"res1", "+", "res0"}], ")"}]}], "//", "N"}]}], "Input",
+ CellChangeTimes->{{3.5636894020283613`*^9, 3.5636894553308163`*^9}, {
+  3.563689511688156*^9, 3.5636895164100523`*^9}, {3.563689574803727*^9, 
+  3.563689702502759*^9}, {3.563689773437667*^9, 3.563689776818375*^9}, {
+  3.5636899798372087`*^9, 3.563689983810108*^9}, {3.563690050261682*^9, 
+  3.56369005479953*^9}, {3.56369013043219*^9, 3.563690372288957*^9}}],
+
+Cell[BoxData[
+ FractionBox["1608459449", "18282735420"]], "Output",
+ CellChangeTimes->{{3.563690166368215*^9, 3.5636902208847227`*^9}, {
+   3.5636902546369677`*^9, 3.56369027478541*^9}, 3.563690305734354*^9, {
+   3.563690352773014*^9, 3.56369037273621*^9}, 3.563690471142565*^9, 
+   3.563692480155129*^9}],
+
+Cell[BoxData[
+ FractionBox["255150357", "1218849028"]], "Output",
+ CellChangeTimes->{{3.563690166368215*^9, 3.5636902208847227`*^9}, {
+   3.5636902546369677`*^9, 3.56369027478541*^9}, 3.563690305734354*^9, {
+   3.563690352773014*^9, 3.56369037273621*^9}, 3.563690471142565*^9, 
+   3.563692480157734*^9}],
+
+Cell[BoxData["0.7026859121937673`"], "Output",
+ CellChangeTimes->{{3.563690166368215*^9, 3.5636902208847227`*^9}, {
+   3.5636902546369677`*^9, 3.56369027478541*^9}, 3.563690305734354*^9, {
+   3.563690352773014*^9, 3.56369037273621*^9}, 3.563690471142565*^9, 
+   3.563692480159753*^9}]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{740, 752},
+WindowMargins->{{4, Automatic}, {Automatic, 4}},
+FrontEndVersion->"8.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (October 5, \
+2011)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 94, 1, 46, "Subtitle"],
+Cell[CellGroupData[{
+Cell[698, 27, 518, 8, 73, "Input"],
+Cell[1219, 37, 174, 3, 27, "Output"],
+Cell[1396, 42, 174, 3, 27, "Output"],
+Cell[1573, 47, 174, 3, 27, "Output"],
+Cell[1750, 52, 172, 3, 27, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1959, 60, 1287, 34, 100, "Input"],
+Cell[3249, 96, 305, 5, 47, "Output"],
+Cell[3557, 103, 303, 5, 47, "Output"],
+Cell[3863, 110, 284, 4, 27, "Output"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
