@@ -3,8 +3,10 @@
 #include<string>
 using namespace std;
 #define MAX_N 30
+#define long long long
 
-short n;
+long n;
+long lower, upper;
 
 void recurse(int numbers[], short sum, int j)
 {
@@ -24,25 +26,56 @@ void recurse(int numbers[], short sum, int j)
   }
 }
 
+vector<string> solutions;
+
 void recurse2(string s, short sum)
 {
   if(sum < n) {
     for(int i = 1; i < 10; ++i)
       recurse2(s + char(i+'0'), sum + i);
-  } else {
-    for(auto l : s) printf("%c", l);
-    printf("\n");
+  } else if (sum == n) {
+    solutions.push_back(s);
+    // for(auto l : s) printf("%c", l);
+    // printf("\n");
   }
+}
+
+long dp[200]; // depth, sum
+long res = 0;
+long smallest = INT_MAX;
+
+long dp_recurse(long number, long sum)
+{
+  if(dp[sum] != -1) 
+    return dp[sum];
+
+  // cout << sum << ":" << number << endl;
+
+  if(sum < n && number <= upper) {
+    long local_sum = 0;
+
+    for(long i = 1; i < 10; ++i)
+      local_sum += dp_recurse(number * 10 + i, sum + i);
+
+    return local_sum;
+  } else if (sum == n && number <= upper && number >= lower) {
+    smallest = min(smallest, number);
+    return 1;
+  }
+
+  return 0;
 }
 
 int main()
 {
-  n = 22;
+  lower = 11111;
+  upper = 99999;
+  n = 24;
 
-  // int numbers[MAX_N];
-  // recurse(numbers, 0, 0);
+  memset(dp, -1, sizeof dp);
+  cout << dp_recurse(0, 0) << endl;
+  cout << smallest << endl;
 
-  recurse2("", 0);
 
   return 0;
 }
