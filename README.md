@@ -8,3 +8,6 @@ Solutions to tasks in informatics from competitions such as:
 * [Codeforces](http://codeforces.com)
 * [Rosalind](http://rosalind.info)
 * [Croation Open Competition in Informatics](http://www.hsin.hr/coci/) (COCI)
+* [UVA](http://uva.onlinejudge.org/)
+
+Some of the solutions are incomplete.
