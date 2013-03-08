@@ -164,9 +164,9 @@ int main()
   final = state;
   sort(final.begin(), final.end());
 
-  // for(size_t i = 0; i < final.size(); i++)
-  //   printf("%d ", final[i]);
-  // printf("\n");
+  for(size_t i = 0; i < final.size(); i++)
+    printf("%d ", final[i]);
+  printf("\n");
 
   inner();
 

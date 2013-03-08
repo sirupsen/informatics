@@ -1,74 +1,37 @@
 #include<iostream>
 #include<vector>
+#include<cstdio>
 using namespace std;
-
-struct SegmentTree {
-  vector<int> tree;
-
-  SegmentTree(size_t n) {
-    tree.assign(n * 2, 0);
-  }
-
-  void add(size_t pos, int start, int end, int key, int val) {
-    if(key >= start && key <= end) {
-      tree[pos] += val;
-
-      if(start != end) {
-        add(pos * 2, start, (start + end)/2, key, val);
-        add(pos * 2 + 1, (start + end)/2 + 1, end, key, val);
-      }
-    }
-  }
-
-  int sum(size_t pos, int start, int end, int query_start, int query_end) {
-    if(start >= query_start && end <= query_end) {
-      return tree[pos];
-    } else if (query_start > end || query_end < start) {
-      return 0;
-    } else {
-      return sum(pos * 2, start, (start + end)/2, query_start, query_end) +
-        sum(pos * 2 + 1, (start + end)/2 + 1, end, query_start, query_end);
-    }
-  }
-
-  int prefix_sum(size_t pos, int start, int end, int search) {
-    if (end == start) return start;
-
-    if(tree[pos * 2] >= search) {
-      return prefix_sum(pos * 2, start, (start+end)/2, search);
-    } else {
-      return prefix_sum(pos * 2+1, (start + end)/2 + 1, end, search - tree[pos * 2]);
-    }
-  }
-};
-
-struct Match {
-  int a;
-  int b;
-  int a_i;
-  int b_i;
-};
 
 int main()
 {
-  priority_queue<pair<int, Match>> pq;
-  vector<int> numbers;
+  int n;
+  scanf("%d", &n);
 
-  int n; scanf("%d", &n);
-  numbers.resize(n);
+  vector<int> a;
+  a.resize(n + 5);
 
-  for(int i = 0; i < n; i++)
-    scanf("%d", &numbers[i]);
+  for(int i = 1; i <= n; i++)
+    scanf("%d", &a[i]);
 
-  for(int i = 0; i < n; i++) {
-    int a = numbers[i], b = numbers[i + 1];
+  a[0] = a[n + 1] = INT_MAX;
 
-    Match m = {};
+  vector<int> s;
+  s.push_back(a[0]);
 
-    pq.push(max(a,b), m);
+  long long res = 0;
+
+  for(int i = 1; i <= n + 1; i++) {
+    while(a[i] >= s.back()) {
+      int k = min(a[i], s[s.size() - 2]);
+      if(k == INT_MAX) break;
+      res += k;
+      s.pop_back();
+    }
+    s.push_back(a[i]);
   }
 
-  for(size_t i = 0; i < 
+  printf("%lld\n", res);
 
   return 0;
 }
