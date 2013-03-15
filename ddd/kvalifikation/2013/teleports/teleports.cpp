@@ -1,29 +1,25 @@
 #include<cstdio>
+#include<cassert>
 #include<vector>
 #include<queue>
+#include<stack>
 #include<utility>
 using namespace std;
 
 #define MAX_N 50005
 
-struct Portal {
-  size_t target;
-  unsigned int in;
-  bool state; 
-}
-
 struct Island {
   vector<size_t> dest;
-  vector<size_t> in;
+  vector<int> in;
   vector<bool> state;
   size_t size;
 
   Island(size_t n, bool initial_state)
   {
     this->size = n;
-    this->dest.resize(n + 1);
-    this->in.assign(n + 1, 0);
-    this->state.assign(n + 1, initial_state);
+    this->dest.resize(n + 5);
+    this->in.assign(n + 5, 0);
+    this->state.assign(n + 5, initial_state);
   }
 };
 
@@ -45,30 +41,41 @@ int main()
     bornholm.in[gotland.dest[i]]++;
   }
 
-  queue<int> q;
+  stack<int> s;
 
   for(int i = 1; i <= bornholm.size; i++)
-    if(!bornholm.in[i]) q.push(i);
+    if(bornholm.in[i] == 0) s.push(i);
 
-  while(!q.empty()) {
-    int useless = q.front(); q.pop();
-    int dest = bornholm.dest[useless];
+  while(!s.empty()) {
+    size_t useless = s.top(); s.pop();
+    size_t dest = bornholm.dest[useless];
 
     bornholm.state[useless] = 1;
     gotland.state[dest]     = 0;
 
+    size_t third = gotland.dest[dest];
 
-    if(--bornholm.in[gotland.dest[dest]] == 0)
-      q.push(gotland.dest[dest]);
+    bornholm.in[third]--;
+
+    if(bornholm.in[third] <= 0 && bornholm.state[third] == 0)
+      s.push(third);
+  }
+
+  for(int i = 0; i < gotland.size; i++) {
+    size_t dest = gotland.dest[i];
+
+    if(gotland.state[i] == 1 && bornholm.state[dest] == 1) {
+      printf("fuck @ %d which sends to %d\n", i, (int)dest);
+    }
   }
 
   for(int i = 1; i <= bornholm.size; i++)
-    printf("%d ", (int)bornholm.state[i]);
+    printf("%d", (int)bornholm.state[i]);
 
   printf("\n");
 
   for(int i = 1; i <= gotland.size; i++)
-    printf("%d ", (int)gotland.state[i]);
+    printf("%d", (int)gotland.state[i]);
 
   printf("\n");
 
