@@ -1,0 +1,49 @@
+#include<iostream>
+#include<cstdio>
+#include<queue>
+using namespace std;
+
+
+struct Coordinate
+{
+  int i;
+  int j;
+  int weight;
+
+  Coordinate(int i, int j, int weight)
+  {
+    this->i = i;
+    this->j = j;
+    this->weight = weight;
+  }
+};
+
+void input()
+{
+  string line;
+
+  int w, h;
+  cin >> w >> h;
+
+  Node field[500][500];
+
+  queue<Coordinate> q;
+
+  for(int i = 1; i <= h; i++) {
+    char c = getchar();
+
+    if(i == 1 && c == ' ')
+
+    for(int j = 1; j <= w; j++) {
+    }
+  }
+
+  // read in last one for potential exits
+
+  getline(cin, line);
+}
+
+int main()
+{
+  return 0;
+}

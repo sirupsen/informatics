@@ -5,6 +5,7 @@ int m;
 
 int table[500][500];
 int visited[500][500];
+int room[500][500];
 
 int largest_room;
 int rooms;
@@ -96,14 +97,29 @@ int explore(int i, int j)
   return 0;
 }
 
+void flood_fill_size(int i, int j, int &size)
+{
+  if(visited[i][j]) {
+    room[i][j] = size;
+
+    flood_fill_size(i, j - 1);
+    flood_fill_size(i, j + 1);
+    flood_fill_size(i + 1, j);
+    flood_fill_size(i - 1, j);
+  }
+}
+
 void solve()
 {
   for(int i = 0; i < 1; i++) {
     for(int j = 0; j < 1; j++) {
       printf("%d", i);
       int current_room = explore(i, j);
-      // if (current_room > largest_room) largest_room = current_room;
-      // if (current_room > 0) rooms += 1;
+
+      if (current_room > largest_room)
+        largest_room = current_room;
+
+      if (current_room > 0) rooms += 1;
     }
   }
 }

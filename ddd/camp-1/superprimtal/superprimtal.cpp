@@ -1,14 +1,16 @@
-#include<iostream>
+#include<cstdio>
+#include<algorithm>
 #include<vector>
 #include<cmath>
-using namespace std;
 
 int n;
-vector<int> super_primes;
+int super_primes = 0;
 
 int is_prime(int number)
 {
-  for(int n = 2; n <= sqrt(number); n++)
+  if(number <= 1) return false;
+
+  for(int n = 2; n <= (int)std::sqrt((double)number); n++)
     if(number % n == 0) return false;
 
   return true;
@@ -22,7 +24,7 @@ void recurse(int number, int depth)
     int new_number = number * 10 + i;
 
     if(is_prime(new_number)) {
-      super_primes.push_back(new_number);
+      super_primes++;
       recurse(new_number, depth + 1);
     }
   }
@@ -30,13 +32,10 @@ void recurse(int number, int depth)
 
 int main()
 {
-  cin >> n;
+  scanf("%d", &n);
   recurse(0, 0);
 
-  sort(super_primes.begin(), super_primes.end());
-
-  for(auto p : super_primes)
-    printf("%d\n", p);
+  printf("%d\n", super_primes);
 
   return 0;
 }
