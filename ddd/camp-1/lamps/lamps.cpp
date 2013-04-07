@@ -125,6 +125,17 @@ int main()
 
   solve(starting_point, 0);
 
+  if(c % 2 == 0)
+  {
+    string all_1;
+    all_1.assign(n, '1');
+    results.push_back(all_1);
+
+    string all_0;
+    all_0.assign(n, '0');
+    results.push_back(all_0);
+  }
+
   sort(results.begin(), results.end());
 
   for(int i = 0; i < results.size(); i++)
