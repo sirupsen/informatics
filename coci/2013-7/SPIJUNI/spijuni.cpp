@@ -25,6 +25,7 @@ struct DisjointSet {
   {
     parent[find_parent(j)] = find_parent(i);
     cost[find_parent(i)] = min(cost[find_parent(i)], cost[find_parent(j)]);
+    cost[find_parent(j)] = min(cost[find_parent(i)], cost[find_parent(j)]);
   }
 
   int find_parent(int i)
@@ -95,6 +96,7 @@ int main()
   {
     if(!visited[ds.find_parent(i)])
     {
+      cout << "Sending off " << ds.trip_cost(i) << endl;
       min_span += ds.trip_cost(i);
     }
 

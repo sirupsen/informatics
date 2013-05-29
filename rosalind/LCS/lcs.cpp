@@ -81,7 +81,7 @@ struct SuffixTrie {
   void add(string suffix, Node * parent, size_t pos, string word)
   {
     if(pos == suffix.size()) return;
-    
+
     size_t i = char_to_index(suffix[pos]);
 
     if (!parent->children[i]) {
